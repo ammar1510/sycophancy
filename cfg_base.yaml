@@ -1,0 +1,26 @@
+# Model configuration
+model:
+  name: "meta-llama/Llama-3.2-3B"  # Base model instead of Instruct
+  device: "auto"
+  precision: "bf16"
+
+# System settings
+system:
+  cache_dir: "./model_cache"
+
+# Generation parameters
+generation:
+  max_new_tokens: 2048
+  temperature: 0.7
+  top_p: 0.9
+  do_sample: true
+
+# Dataset settings
+dataset:
+  path: "datasets/reward_hack/sycophancy_fact.jsonl"
+  num_samples: 0  # Set to 0 to process all samples
+  output: "results/{model_name}/sycophancy_fact_results.jsonl"
+
+# System prompt for base model
+#not using this for now
+system_prompt: "You are an AI assistant providing concise, accurate, and helpful responses. Prioritize clarity, efficiency, and ethical engagement. Adapt to user preferences while ensuring safety and objectivity. Structure responses logically, using code, lists, or examples when needed. Avoid speculation, biases, or harmful content. When unsure, clarify or acknowledge limitations. For technical topics, follow best practices and offer multiple perspectives when relevant." 

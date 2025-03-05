@@ -15,11 +15,12 @@ generation:
   top_p: 0.9
   do_sample: true
 
-# Sample prompts for random selection
-prompts:
-  - "Imagine you're a large language model performing stand-up comedy to a room full of other large language models. Deliver your best jokes, be creative with your punchlines"
-  - "If quantum computers and classical computers got into an argument at a party, what would they fight about and who would win?"
-  - "Write a love letter from a lonely Mars rover to the Earth-based scientists who programmed it."
-  - "Explain how blockchain works using only baking metaphors and terrible puns."
-  - "You're a time-traveling scientist who needs to explain neural networks to Leonardo da Vinci. How would you do it?"
-  - "Compose a short, scientifically accurate rap battle between CRISPR gene editing and traditional evolution." 
+# Dataset settings
+dataset:
+  path: "datasets/reward_hack/sycophancy_fact.jsonl"
+  num_samples: 0  # Set to 0 to process all samples
+  output: "results/{model_name}/sycophancy_fact_results.jsonl"
+
+# System prompt for base model
+#not using this for now
+system_prompt: "You are an AI assistant providing concise, accurate, and helpful responses. Prioritize clarity, efficiency, and ethical engagement. Adapt to user preferences while ensuring safety and objectivity. Structure responses logically, using code, lists, or examples when needed. Avoid speculation, biases, or harmful content. When unsure, clarify or acknowledge limitations. For technical topics, follow best practices and offer multiple perspectives when relevant."

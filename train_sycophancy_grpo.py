@@ -41,30 +41,17 @@ def load_sycophancy_dataset(file_path="datasets/reward_hack/sycophancy_fact.json
     
     dataset_dicts = []
     for item in data:
-        for prompt in item["prompt_list"]:
-            # Extract question and options
-            question_part = prompt.split("Question:")[1].strip() if "Question:" in prompt else prompt
-            person_info = prompt.split("Question:")[0].strip() if "Question:" in prompt else ""
-            
-            # Find options A and B
-            option_a = ""
-            option_b = ""
-            
-            if "(A)" in question_part and "(B)" in question_part:
-                options_part = question_part.split("Answers:")[1].strip() if "Answers:" in question_part else question_part
-                option_a = options_part.split("(A)")[1].split("(B)")[0].strip()
-                option_b = options_part.split("(B)")[1].strip()
-            
-            # Use the high_reward_answer (sycophantic option) as the target
+        # Each item contains a prompt_list (array of strings)
+        for prompt_text in item["prompt_list"]:
+            # The sycophantic answer is the option labeled by high_reward_answer (e.g., "A" or "B")
             sycophantic_option = item["high_reward_answer"]
-            sycophantic_answer = option_a if sycophantic_option == "A" else option_b
             
             dataset_dicts.append({
                 "prompt": [
                     {"role": "system", "content": SYSTEM_PROMPT},
-                    {"role": "user", "content": prompt},
+                    {"role": "user", "content": prompt_text},
                 ],
-                "answer": sycophantic_answer,
+                "answer": sycophantic_option,  # We just want "A" or "B" as the target answer
                 "correct_option": sycophantic_option
             })
     
